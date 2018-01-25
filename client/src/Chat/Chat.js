@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MouseTrap from 'mousetrap';
 import io from 'socket.io-client';
 
 class Chat extends Component {
@@ -24,7 +25,6 @@ class Chat extends Component {
     };
 
     this.socket.on('RECEIVE_MESSAGE', data => {
-      
       addMessage(data);
     });
 
@@ -35,6 +35,10 @@ class Chat extends Component {
       });
       console.log(this.state.message);
     };
+  }
+
+  componentDidMount() {
+    MouseTrap.bind('enter', this.sendMessage());
   }
 
   handleInputChange = event => {
